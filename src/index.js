@@ -1,20 +1,21 @@
 const express = require('express');
 const config = require('./config/config');
+const setupViewEngine = require('./config/viewEngine');
+
+const routes=require('./routes');
+
+
+// const { getCreateCube } = require('./controllers/cubeController');//named import
 
 const app = express();
 
 // require('./config/viewEngine')(app)  // or ===
-const setupViewEngine=require('./config/viewEngine');
 setupViewEngine(app);
 
 app.use(express.static('src/public'));
+app.use(routes);
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
 
-app.get('/about',(req,res)=>{
-    res.render('about')
-})
+
 
 app.listen(config.PORT, () => console.log(`port ${config.PORT}...`));
