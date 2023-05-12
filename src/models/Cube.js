@@ -11,9 +11,10 @@ class Cube {
     }
 
     static save(cube) {
+        cube.id = data.cubes[data.cubes.length - 1].id + 1
         console.log(data);
         data.cubes.push(cube);
-        const jsonData = JSON.stringify(data,null,2);//to ad data in json file beauty arranged
+        const jsonData = JSON.stringify(data, null, 2);//to ad data in json file beauty arranged
         console.log(jsonData);
         fs.writeFileSync(path.resolve(__dirname, '../data.json'), jsonData)
     }
