@@ -10,6 +10,7 @@ const homeController = require('./controllers/homeController');
 
 router.get('/',homeController.getHomepage);
 router.get('/about',homeController.getAboutPage);
+router.get('/404',homeController.getErrorPage);
 
 // app.get('/create',(req,res)=>{
 //     res.render('create');
