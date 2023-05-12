@@ -17,5 +17,6 @@ router.get('/about',homeController.getAboutPage);
 // app.get('/create', cubeController.getCreateCube)
 router.get('/create', cubeController.getCreateCube);
 router.post('/create',cubeController.postCreateCube);
+router.get('/details/:cubeId',cubeController.getDetails);
 
 module.exports=router;
