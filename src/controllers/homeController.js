@@ -6,7 +6,11 @@ exports.getHomepage = (req, res) => {
 
 exports.getAboutPage = (req, res) => {
     res.render('about')
-}
+};
+
+exports.getErrorPage=(req,res)=>{
+    res.render('404');
+};
 
 // app.get('/', (req, res) => {
 //     res.render('index');

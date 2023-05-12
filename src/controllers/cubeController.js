@@ -19,11 +19,11 @@ exports.getDetails = (req, res) => {
     const selectedCubeId = (req.params.cubeId);
     // console.log(selectedCubeId);
     if (!selectedCubeId) {
-        return res.redirect('404');
+        return res.redirect('/404');
     };
     let selectedCube = data.cubes.find(x => x.id === selectedCubeId);
     if (!selectedCube) {
-        return res.redirect('404');
+        return res.redirect('/404');
     };
     res.render('details', { selectedCube })
 }
