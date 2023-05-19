@@ -18,4 +18,4 @@ app.use(routes);
 
 initDB()
     .then(() => app.listen(config.PORT, () => console.log(`port ${config.PORT}...`)))
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err.message));
