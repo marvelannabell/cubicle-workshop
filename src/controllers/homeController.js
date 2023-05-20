@@ -1,11 +1,15 @@
-const data = require('../data.json');
+// const data = require('../data.json');
+const Cube = require('../models/Cube');
 
-exports.getHomepage = (req, res) => {
+
+exports.getHomepage = async (req, res) => {
     console.log(req.query);
     const { search, from, to } = req.query;
-    let cubes = data.cubes;
+    let cubes = await Cube.find().lean();//document to pure obj
     console.log(cubes);
     console.log('req.query', search);
+
+    //todo use db filtration instead of memory filtering
     if (search) {
         cubes = cubes.filter(x => x.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()));
     };
@@ -16,7 +20,7 @@ exports.getHomepage = (req, res) => {
         cubes = cubes.filter(x => x.difficultyLevel <= to)
     };
 
-    res.render('index', { cubes: cubes, search ,from, to});
+    res.render('index', { cubes: cubes, search, from, to });
 };
 
 exports.getAboutPage = (req, res) => {
