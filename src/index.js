@@ -1,5 +1,5 @@
 const express = require("express");
-const config = require("./config/config");
+const config = require("./config/index.js");
 const setupViewEngine = require("./config/viewEngine");
 
 const routes = require("./routes");

@@ -1,0 +1,22 @@
+<main>
+  <h1>{{selectedCube.name}}</h1>
+  <img class="cube" src={{selectedCube.imageUrl}}>
+  <div class="details">
+    <p><span>Description:</span>{{selectedCube.description}}</p>
+    <p><span>Difficulty level:</span> {{selectedCube.difficultyLevel}}</p>
+    <a class="btn" href="/">Back</a>
+    <a class="btn" href="/cubes/{{selectedCube._id}}/attach">Attach</a>
+  </div>
+  <h2>Accessories</h2>
+  <div class="accessories">
+    {{#each selectedCube.accessories}}
+    <div class="accessory">
+      <img src="{{this.imageUrl}}" alt="{{this.name}}">
+      <h3>{{this.name}}</h3>
+      <p>{{this.description}}</p>
+    </div>
+    {{else}}
+    <h3 class="italic">This cube has no accessories yet...</h3>
+    {{/each}}
+  </div>
+</main>
