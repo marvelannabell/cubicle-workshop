@@ -1,21 +1,21 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 
-const accessorySchema = new Schema({
+const accessorySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
     },
-    imageUrl:{
-        type:String,
-        required:true,
-    },
-    description:{
+    imageUrl: {
         type: String,
-        required:true,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
         maxLength: 50,
     },
 });
 
-const Accessory = model('Accessory', accessorySchema);
+const Accessory = mongoose.model('Accessory', accessorySchema);
 
-module.exports=Accessory;
+module.exports = Accessory;
