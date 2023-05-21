@@ -30,7 +30,8 @@ exports.getDetails = async (req, res) => {
 
 exports.getAttachAccessory = async (req, res) => {
     const selectedCube = await Cube.findById(req.params.cubeId).lean()
-    const accessories = await Accessory.find().lean()
+    // const accessories = await Accessory.find().lean()
+    const accessories = await Accessory.find({_id:{$nin: selectedCube.accessories}}).lean()//$nin = not in
 
 
     res.render('cube/attach', { selectedCube, accessories });
