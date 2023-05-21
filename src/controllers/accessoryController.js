@@ -10,7 +10,7 @@ router.get('/create', (req, res) => {
 router.post('/create', async (req, res) => {
     const { name, description, imageUrl } = req.body;
 
-    // const accessory = new Accessory({name, descripotion,imageUrl}) ===
+    // const accessory = new Accessory({name, descripotion,imageUrl})...await accessory.save(); ===
     const accessoryDB = await Accessory.create({ name, description, imageUrl });
     console.log(accessoryDB._id);
 
