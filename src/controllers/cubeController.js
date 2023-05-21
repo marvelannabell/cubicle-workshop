@@ -37,11 +37,11 @@ exports.getAttachAccessory = async (req, res) => {
 };
 
 exports.postAttachAccessory = async (req, res) => {
-    console.log('Im here');
+    // console.log('Im here');
     const selectedCube = await Cube.findById(req.params.cubeId)//the document without .lean()
     const accessoryId = req.body.accessory;//this comes from  <select id="accessory" name="accessory" /> and its value === <option value="{{this._id}}">
     selectedCube.accessories.push(accessoryId);
-    selectedCube.save();
+    await selectedCube.save();
     res.redirect(`/cubes/${selectedCube._id}/details`);
-    console.log(accessoryId);
+    // console.log(accessoryId);
 };
