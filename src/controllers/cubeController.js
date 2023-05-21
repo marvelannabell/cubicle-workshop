@@ -11,27 +11,35 @@ exports.getCreateCube = (req, res) => {
 exports.postCreateCube = async (req, res) => {
     // console.log(req.body);
     const { name, description, imageUrl, difficultyLevel } = req.body
-    //save cube
-    let cube = new Cube({ name, description, imageUrl, difficultyLevel });//need to be destructed to save data correct
-    await cube.save();
-    //redirect
-    res.redirect('/');
+    try {
+        //save cube
+        let cube = new Cube({ name, description, imageUrl, difficultyLevel });//need to be destructed to save data correct
+        await cube.save();
+        //redirect
+        res.redirect('/');
+
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect('/404')
+    }
+
+
 };
 
 exports.getDetails = async (req, res) => {
     const selectedCube = await Cube.findById(req.params.cubeId).populate('accessories').lean()
     console.log(selectedCube);
-    
+
     if (!selectedCube) {
         return res.redirect('/404');
     };
-    res.render('cube/details', { selectedCube})
+    res.render('cube/details', { selectedCube })
 };
 
 exports.getAttachAccessory = async (req, res) => {
     const selectedCube = await Cube.findById(req.params.cubeId).lean()
     // const accessories = await Accessory.find().lean()
-    const accessories = await Accessory.find({_id:{$nin: selectedCube.accessories}}).lean()//$nin = not in
+    const accessories = await Accessory.find({ _id: { $nin: selectedCube.accessories } }).lean()//$nin = not in
 
 
     res.render('cube/attach', { selectedCube, accessories });
