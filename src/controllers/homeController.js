@@ -24,7 +24,7 @@ exports.getHomepage = async (req, res) => {
 };
 
 exports.getAboutPage = (req, res) => {
-    res.render('about')
+    res.render('about');
 };
 
 exports.getErrorPage = (req, res) => {
