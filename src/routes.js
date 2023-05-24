@@ -8,12 +8,15 @@ const router = require('express').Router();
 const cubeController = require('./controllers/cubeController');
 const homeController = require('./controllers/homeController');
 const accessoryController = require('./controllers/accessoryController');
+const authController = require('./controllers/authController');
 
 router.get('/', homeController.getHomepage);
 // router.get('/api', homeController.getApiData);
 router.get('/about', homeController.getAboutPage);
 router.get('/404', homeController.getErrorPage);
 
+
+router.use('/',authController);
 // app.get('/create',(req,res)=>{
 //     res.render('create');
 // });
@@ -25,5 +28,6 @@ router.get('/cubes/:cubeId/attach', cubeController.getAttachAccessory);
 router.post('/cubes/:cubeId/attach', cubeController.postAttachAccessory)
 
 router.use('/accessories', accessoryController);
+
 
 module.exports = router;
