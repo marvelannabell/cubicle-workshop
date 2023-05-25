@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const config = require('./index');
+const config = require('./config');
 
 // const dbUri = "mongodb://127.0.0.1:27017/cubicle";
 

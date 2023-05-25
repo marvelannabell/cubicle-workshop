@@ -3,10 +3,10 @@ const Cube = require('../models/Cube');
 
 
 exports.getHomepage = async (req, res) => {
-    console.log(req.query);
+    // console.log(req.query);
     const { search, from, to } = req.query;
     let cubes = await Cube.find().lean();//document to pure obj
-    console.log(cubes);
+    // console.log(cubes);
     // console.log('req.query', search);
 
     //todo use db filtration instead of memory filtering

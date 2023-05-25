@@ -8,8 +8,8 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
-        const user = await authService.login(username, password);
-        console.log(user);
+        const token = await authService.login(username, password);
+        console.log(token);
 
 
     } catch (error) {
@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
     };
 
     const user = await authService.register(username, password);
-    console.log(user);
+    // console.log(user);
     res.redirect('/login');
 });
 module.exports = router;
