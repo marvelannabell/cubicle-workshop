@@ -1,13 +1,16 @@
 // const Cube = require('../models/Cube');
 const Cube = require('../models/Cube');
 const Accessory = require('../models/Accessory');
- 
+const cubeUtils = require('../utils/cubeUtils');
+
+const cubeService = require('../services/cubeService');
+
 
 // const data = require('../data.json')
 //named export
 exports.getCreateCube = (req, res) => {
     res.render('create');
-    console.log(req.user,"req.user");
+    console.log(req.user, "req.user");
 };
 
 exports.postCreateCube = async (req, res) => {
@@ -20,7 +23,7 @@ exports.postCreateCube = async (req, res) => {
     // try {
 
     //     const decodedToken = await jwt.veryfy(token, config.SECRET);
-        
+
     // } catch (error) {
     //     console.log(error);
     //     return res.redirect('/404');
@@ -47,11 +50,12 @@ exports.postCreateCube = async (req, res) => {
 
 exports.getDetails = async (req, res) => {
     const selectedCube = await Cube.findById(req.params.cubeId).populate('accessories').lean()
-    console.log(selectedCube);
+    // console.log(selectedCube);
 
     if (!selectedCube) {
         return res.redirect('/404');
     };
+    console.log(selectedCube, 'details');
     res.render('cube/details', { selectedCube })
 };
 
@@ -69,7 +73,22 @@ exports.postAttachAccessory = async (req, res) => {
     const selectedCube = await Cube.findById(req.params.cubeId)//the document without .lean()
     const accessoryId = req.body.accessory;//this comes from  <select id="accessory" name="accessory" /> and its value === <option value="{{this._id}}">
     selectedCube.accessories.push(accessoryId);
+
     await selectedCube.save();
+
     res.redirect(`/cubes/${selectedCube._id}/details`);
     // console.log(accessoryId);
 };
+
+exports.getEditCube = async (req, res) => {
+    const selectedCube = await cubeService.getOne(req.params.cubeId);
+    const difficultyLevels = cubeUtils.selectDifficultyLevels(selectedCube.difficultyLevel)
+
+    res.render('cube/edit', { selectedCube, difficultyLevels });
+}
+
+exports.getDeleteCube = async (req, res) => {
+    const cube = await cubeService.getOne(req.params.cubeId);
+
+    res.render('cube/delete', { cube });
+}
