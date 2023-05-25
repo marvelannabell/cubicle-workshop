@@ -8,4 +8,7 @@ exports.getOne = async (cubeId) => {
 exports.update = async (cubeId, data) => {
     const selectedCube = await Cube.findByIdAndUpdate(cubeId, data, { runValidators: true }).lean();
     return selectedCube
-}
+};
+
+exports.delete = (cubeId) => Cube.findByIdAndDelete(cubeId).lean();
+
