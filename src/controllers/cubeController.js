@@ -87,6 +87,26 @@ exports.getEditCube = async (req, res) => {
     res.render('cube/edit', { selectedCube, difficultyLevels });
 }
 
+exports.postEditedCube = async (req, res) => {
+    const { name, description, imageUrl, difficultyLevel } = req.body
+
+    try {
+
+        await cubeService.update(req.params.cubeId, {
+            name,
+            description,
+            imageUrl,
+            difficultyLevel,
+        });
+    
+       res.redirect(`/cubes/${req.params.cubeId}/details`); 
+        
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect('/404')
+    }
+};
+
 exports.getDeleteCube = async (req, res) => {
     const cube = await cubeService.getOne(req.params.cubeId);
 
