@@ -1,14 +1,33 @@
 // const Cube = require('../models/Cube');
 const Cube = require('../models/Cube');
 const Accessory = require('../models/Accessory');
+ 
 
 // const data = require('../data.json')
 //named export
 exports.getCreateCube = (req, res) => {
     res.render('create');
+    console.log(req.user,"req.user");
 };
 
 exports.postCreateCube = async (req, res) => {
+
+    // autorization moved to middleware
+    // const token = req.cookies['auth'];
+    // if (!token) {
+    //     res.redirect('/404');
+    // };
+    // try {
+
+    //     const decodedToken = await jwt.veryfy(token, config.SECRET);
+        
+    // } catch (error) {
+    //     console.log(error);
+    //     return res.redirect('/404');
+    // }
+
+
+
     // console.log(req.body);
     const { name, description, imageUrl, difficultyLevel } = req.body
     try {

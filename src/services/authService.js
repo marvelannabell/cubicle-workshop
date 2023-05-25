@@ -23,7 +23,7 @@ exports.login = async (username, password) => {
     console.log(config.SECRET);
 
     const payload = { username: user.username }
-    const options = { expiresIn: '1h' }
+    const options = { expiresIn: '1800s' }
     const token = await jwt.sign(payload, config.SECRET, options);
 
     return token

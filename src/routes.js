@@ -9,6 +9,7 @@ const cubeController = require('./controllers/cubeController');
 const homeController = require('./controllers/homeController');
 const accessoryController = require('./controllers/accessoryController');
 const authController = require('./controllers/authController');
+const {isAuthenticated}=require('./middlewares/authMiddleware')
 
 router.get('/', homeController.getHomepage);
 // router.get('/api', homeController.getApiData);
@@ -21,8 +22,8 @@ router.use('/',authController);
 //     res.render('create');
 // });
 // app.get('/create', cubeController.getCreateCube)
-router.get('/cubes/create', cubeController.getCreateCube);
-router.post('/cubes/create', cubeController.postCreateCube);
+router.get('/cubes/create',isAuthenticated, cubeController.getCreateCube);
+router.post('/cubes/create',isAuthenticated, cubeController.postCreateCube);
 router.get('/cubes/:cubeId/details', cubeController.getDetails);
 router.get('/cubes/:cubeId/attach', cubeController.getAttachAccessory);
 router.post('/cubes/:cubeId/attach', cubeController.postAttachAccessory)
