@@ -98,9 +98,9 @@ exports.postEditedCube = async (req, res) => {
             imageUrl,
             difficultyLevel,
         });
-    
-       res.redirect(`/cubes/${req.params.cubeId}/details`); 
-        
+
+        res.redirect(`/cubes/${req.params.cubeId}/details`);
+
     } catch (error) {
         console.log(error.message);
         return res.redirect('/404')
@@ -108,7 +108,16 @@ exports.postEditedCube = async (req, res) => {
 };
 
 exports.getDeleteCube = async (req, res) => {
-    const cube = await cubeService.getOne(req.params.cubeId);
+    const selectedCube = await cubeService.getOne(req.params.cubeId);
+    const difficultyLevels = cubeUtils.selectDifficultyLevels(selectedCube.difficultyLevel)
 
-    res.render('cube/delete', { cube });
-}
+
+
+    res.render('cube/delete', { selectedCube, difficultyLevels });
+};
+
+exports.postDeleteCube = async (req, res) => {
+    await cubeService.delete(req.params.cubeId);
+
+    res.redirect('/');
+};
