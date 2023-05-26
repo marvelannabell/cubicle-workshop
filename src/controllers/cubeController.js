@@ -9,7 +9,7 @@ const cubeService = require('../services/cubeService');
 // const data = require('../data.json')
 //named export
 exports.getCreateCube = (req, res) => {
-    res.render('create');
+    res.render('cube/create');
     console.log(req.user, "req.user");
 };
 

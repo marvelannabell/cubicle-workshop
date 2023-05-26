@@ -18,6 +18,7 @@ router.get('/404', homeController.getErrorPage);
 
 
 router.use('/',authController);
+
 // app.get('/create',(req,res)=>{
 //     res.render('create');
 // });
