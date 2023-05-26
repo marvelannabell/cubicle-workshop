@@ -9,7 +9,7 @@ router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const token = await authService.login(username, password);
-        res.cookie('auth', token,{httpOnly:true});//send cookie to client
+        res.cookie('auth', token, { httpOnly: true });//send cookie to client
         // console.log(token);
     } catch (error) {
         console.log(error);
@@ -40,4 +40,10 @@ router.post('/register', async (req, res) => {
     // console.log(user);
     res.redirect('/login');
 });
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('auth');
+    res.redirect('/');
+});
+
 module.exports = router;
