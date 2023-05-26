@@ -35,7 +35,14 @@ exports.postCreateCube = async (req, res) => {
     const { name, description, imageUrl, difficultyLevel } = req.body
     try {
         //save cube
-        let cube = new Cube({ name, description, imageUrl, difficultyLevel });//need to be destructed to save data correct
+        let cube = new Cube({
+            name,
+            description,
+            imageUrl,
+            difficultyLevel,
+            owner: req.user._id
+        });//need to be destructed to save data correct
+
         await cube.save();
         //redirect
         res.redirect('/');
@@ -49,14 +56,19 @@ exports.postCreateCube = async (req, res) => {
 };
 
 exports.getDetails = async (req, res) => {
-    const selectedCube = await Cube.findById(req.params.cubeId).populate('accessories').lean()
+    const selectedCube = await Cube
+        .findById(req.params.cubeId)
+        .populate('accessories')
+        .lean()
     // console.log(selectedCube);
 
     if (!selectedCube) {
         return res.redirect('/404');
     };
-    console.log(selectedCube, 'details');
-    res.render('cube/details', { selectedCube })
+    // console.log(selectedCube, 'details');
+    const isOwner = selectedCube.owner == req.user._id;//this works with == because selectedCube.owner is object, and req.user._id is string, so === won`t work
+
+    res.render('cube/details', { selectedCube , isOwner})
 };
 
 exports.getAttachAccessory = async (req, res) => {
