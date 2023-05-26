@@ -1,4 +1,4 @@
-exports.selectDifficultyLevels=(selectedDifficultyLevel)=>{
+exports.selectDifficultyLevels = (selectedDifficultyLevel) => {
     const difficultyLevels = [
         { value: 1, textContent: 'Very Easy', selected: false },
         { value: 2, textContent: 'Easy', selected: false },
@@ -7,6 +7,10 @@ exports.selectDifficultyLevels=(selectedDifficultyLevel)=>{
         { value: 5, textContent: 'Expert', selected: false },
         { value: 6, textContent: 'Hardcore', selected: false },
     ]
-    const result = difficultyLevels.map(x=>x.value === selectedDifficultyLevel? {...x,selected:true}: x);
+    const result = difficultyLevels.map(x => x.value === selectedDifficultyLevel ? { ...x, selected: true } : x);
     return result;
-}
+};
+
+exports.isOwner = (user, cube) => {
+    return cube.owner == user._id;
+};
