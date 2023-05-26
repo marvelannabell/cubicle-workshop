@@ -66,9 +66,9 @@ exports.getDetails = async (req, res) => {
         return res.redirect('/404');
     };
     // console.log(selectedCube, 'details');
-    const isOwner = selectedCube.owner == req.user._id;//this works with == because selectedCube.owner is object, and req.user._id is string, so === won`t work
+    const isOwner = cubeUtils.isOwner(req.user,selectedCube);//this works with == because selectedCube.owner is object, and req.user._id is string, so === won`t work
 
-    res.render('cube/details', { selectedCube , isOwner})
+    res.render('cube/details', { selectedCube, isOwner })
 };
 
 exports.getAttachAccessory = async (req, res) => {
@@ -96,11 +96,18 @@ exports.getEditCube = async (req, res) => {
     const selectedCube = await cubeService.getOne(req.params.cubeId);
     const difficultyLevels = cubeUtils.selectDifficultyLevels(selectedCube.difficultyLevel)
 
+    if (!cubeUtils.isOwner(req.user, selectedCube)) {
+        return res.redirect('/404');
+    };
     res.render('cube/edit', { selectedCube, difficultyLevels });
 }
 
 exports.postEditedCube = async (req, res) => {
-    const { name, description, imageUrl, difficultyLevel } = req.body
+    const { name, description, imageUrl, difficultyLevel } = req.body;
+
+    // if (!cubeUtils.isOwner(req.user, selectedCube)) {
+    //     return res.redirect('/404');
+    // };
 
     try {
 
