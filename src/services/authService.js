@@ -20,9 +20,9 @@ exports.login = async (username, password) => {
     if (!user || !isValid) { //==(!(user && user.validatePassword(password)))
         throw 'Invalid username or password!';
     };
-    console.log(config.SECRET);
+    // console.log(config.SECRET);
 
-    const payload = { username: user.username }
+    const payload = { _id: user._id, username: user.username }
     const options = { expiresIn: '1800s' }
     const token = await jwt.sign(payload, config.SECRET, options);
 
